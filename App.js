@@ -6,6 +6,8 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Main from "./screens/Main";
+import Writing from "./screens/Writing";
+import Home from "./screens/Home";
 import { ThemeProvider } from "styled-components";
 import { useFonts } from "expo-font"
 
@@ -16,7 +18,8 @@ const styledTheme = {
     color1: "#7A70DD",
     color2: "#1D1D1D",
     color3: "#F6F5FF",
-    color4: "#C1BDE5"
+    color4: "#C1BDE5",
+    color5: "#ebebed"
   },
   res: {
     screenHeight,
@@ -49,6 +52,23 @@ export default function App() {
             name="Main"
             component={Main}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Writing"
+            component={Writing}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ 
+              headerShown: true,
+              title: "Journal",
+              headerStyle: {
+                backgroundColor: "#000"
+              },
+              headerTintColor: "#fff"
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -24,7 +24,7 @@ import {
 } from "../styles/Main.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function Main() {
+export default function Main({navigation}) {
   const Buttonopacity = useRef(new Animated.Value(0)).current;
   const DescValue = useRef(new Animated.Value(0)).current;
   const TitleValue = useRef(new Animated.Value(0)).current;
@@ -136,7 +136,7 @@ export default function Main() {
             opacity: Buttonopacity,
           }}
         >
-          <MainButton>
+          <MainButton onPress={()=>navigation.navigate("Writing")}>
             <ButtonText>Update my diary</ButtonText>
           </MainButton>
         </Animated.View>
