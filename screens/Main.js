@@ -25,39 +25,6 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Main() {
-  // const Buttonopacity = useRef(new Animated.Value(0)).current;
-  // const DescValue = useRef(new Animated.Value(0)).current;
-  // const TitleValue = useRef(new Animated.Value(0)).current;
-  // const ImageValue = useRef(new Animated.Value(0)).current;
-
-  //   Animated.timing(DescValue, {
-  //     toValue: 10,
-  //     duration: 1000,
-  //     useNativeDriver: false,
-  //     easing: Easing.ease,
-  //   }).start();
-
-  //   Animated.timing(Buttonopacity,{
-  //     useNativeDriver: true,
-  //     toValue: 1,
-  //     duration: 1000,
-  //     easing: Easing.ease
-  //   }).start()
-
-  //   Animated.timing(TitleValue,{
-  //     toValue: 20,
-  //     useNativeDriver: false,
-  //     duration: 1000,
-  //     easing: Easing.ease
-  //   }).start()
-
-  //   Animated.timing(ImageValue,{
-  //     toValue: 1,
-  //     useNativeDriver: false,
-  //     duration: 1000,
-  //     easing: Easing.ease
-  //   }).start
-
   return (
     <MainContainer>
       <MainBody>
@@ -111,35 +78,20 @@ export default function Main() {
             </Text>
           </ImageBox>
         </MainImage>
-        {/* <Animated.View style={{
-          right: TitleValue
-        }}> */}
         <MainTitle>
           <Title>
             mood<Text style={{ color: "#C1BDE5" }}>diary</Text>
           </Title>
         </MainTitle>
-        {/* </Animated.View> */}
         <MainDescription>
-          {/* <Animated.View style={{
-            bottom: DescValue
-          }}> */}
           <Description>
             Use the mood dairy to track your state and get tips how to improve
             your state
           </Description>
-          {/* </Animated.View> */}
         </MainDescription>
-        {/* <Animated.View
-          style={{
-            width: "85%",
-            opacity: Buttonopacity,
-          }}
-        > */}
           <MainButton>
             <ButtonText>Update my diary</ButtonText>
           </MainButton>
-        {/* </Animated.View> */}
       </MainBody>
     </MainContainer>
   );
