@@ -42,7 +42,7 @@ export const Picture = styled.Image`
 
 export const MainTitle = styled.View`
   top: 180px;
-  right: 20px;
+  right: 10px;
   max-width: 350px;
 `;
 
@@ -66,7 +66,7 @@ export const Description = styled.Text`
 export const MainButton = styled.TouchableOpacity`
   top: 50px;
   background-color: ${({ theme }) => theme.colors.color3};
-  width: 85%;
+  width: 100%;
   height: 55px;
   border-radius: 20px;
   display: flex;
