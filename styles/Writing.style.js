@@ -31,7 +31,7 @@ export const WritingButtonText = styled.Text`
   font-weight: 500px;
 `;
 
-export const EmojiBox = styled.View`
+export const EmojiBox = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
   align-items: center;

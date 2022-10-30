@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, StyleSheet, FlatList } from "react-native";
-import React from "react";
+import { View, Text, SafeAreaView, StyleSheet, FlatList, Animated, Easing} from "react-native";
+import React, { useState, useRef } from "react";
 import {
   WritingContainer,
   VerticleComponent,
@@ -9,6 +9,7 @@ import {
 } from "../styles/Writing.style";
 import { Picture } from "../styles/Main.style";
 import { TextInput } from "react-native-gesture-handler";
+import axios from "axios";
 
 const moods = [
   {
@@ -37,6 +38,35 @@ const date = new Date().toDateString();
 const newdate = date.slice(4, 10);
 
 export default function Writing({navigation}) {
+  const [name ,setName] =  useState("")
+  const [input ,setInput] =  useState("")
+  const [posting, setPosting] = useState(false)
+
+  console.log(name,input)
+
+  
+  const postArticle = async () =>{
+    navigation.navigate("Home")
+    // setPosting(true)
+    // await axios
+    // .post("/api/articles/new",{
+    //   name,
+    //   post: input
+    // })
+    // .then(()=>{
+    //   setPosting(false)
+    //   navigation.navigate("Home")
+    // })
+    // .catch((err)=>{
+    //   console.log(err)
+    // })
+  }
+
+  const emojiName = (name) =>{
+    setName(name)
+  }
+
+
   return (
     <SafeAreaView>
       <WritingContainer>
@@ -61,7 +91,7 @@ export default function Writing({navigation}) {
             pagingEnabled
             renderItem={({item})=>{
                 return(
-                    <EmojiBox wt="120" ht="120">
+                    <EmojiBox wt="120" ht="120" onPress={(e)=>emojiName(item.name)}>
                     <Picture
                       alt=""
                       source={require("../assets/img4.png")}
@@ -93,11 +123,17 @@ export default function Writing({navigation}) {
             multiline={true}
             style={style.input}
             placeholder="Write here about your day"
+            value={input}
+            onChangeText={(text) => {
+              setInput(text)
+            }}
             />
           </View>
         </VerticleComponent>
-        <WritingButton onPress={()=>navigation.navigate("Home")}>
-          <WritingButtonText>Go to my journal</WritingButtonText>
+        <WritingButton onPress={()=>{
+          postArticle()
+          }}>
+          <WritingButtonText>{!posting ? "Go to my journal" : "Posting"}</WritingButtonText>
         </WritingButton>
       </WritingContainer>
     </SafeAreaView>

@@ -15,3 +15,18 @@ export const JournalText = styled.Text`
     font-family: "Gilroy-Light";
     line-height: 30px;
 `
+
+export const SkeltonName = styled.Text`
+    background-color: lightgray;
+    width: 85%;
+`
+export const SkeltonPost = styled.Text`
+    background-color: lightgray;
+    width: 70%;
+    top: 5
+`
+export const SkeltonLast = styled.Text`
+background-color: lightgray;
+    width: 50%;
+    top: 10
+`

@@ -1,61 +1,127 @@
-import { View, Text, SafeAreaView, StyleSheet, FlatList } from "react-native";
-import React from "react";
-import { HomeContainer, JournalText, JournalTitle } from "../styles/Home.style";
+import { View, Text, SafeAreaView, StyleSheet, FlatList, Animated, Easing, TurboModuleRegistry } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { HomeContainer, JournalText, JournalTitle, SkeltonName, SkeltonPost, SkeltonLast } from "../styles/Home.style";
+import axios from "../axios";
 
-const data = [
+
+const skelton = [
   {
-    name: "Journal 1",
-    text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+    name: "",
+    post: "",
+    blah: ""
   },
   {
-    name: "Journal 2",
-    text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+    name: "",
+    post: "",
+    blah: ""
   },
   {
-    name: "Journal 3",
-    text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+    name: "",
+    post: "",
+    blah: ""
   },
   {
-    name: "Journal 4",
-    text: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+    name: "",
+    post: "",
+    blah: ""
   },
-];
+  {
+    name: "",
+    post: "",
+    blah: ""
+  },
+  {
+    name: "",
+    post: "",
+    blah: ""
+  },
+]
+
+const date = new Date().toDateString();
+const newdate = date.slice(4, 10);
 
 export default function Home() {
-  const date = new Date().toDateString();
-  const newdate = date.slice(4, 10);
+  const [myArticles, setMyArticles] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const myValue = useRef(new Animated.Value(0)).current
+
+  
+
+  useEffect(() => {
+    const articles = async () => {
+      await axios
+        .get("/articles/sync")
+        .then((res)=>{
+          setMyArticles(res.data)
+          Animated.timing(myValue,{
+            useNativeDriver: true,
+            duration: 3000,
+            toValue: 5,
+            easing: Easing.ease
+          }).start()
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
+    articles();
+  }, []);
+  
+  setTimeout(() => {
+    setLoading(false)
+  }, 2000);
+
 
   return (
     <SafeAreaView>
       <HomeContainer>
-        <View style={style.date}>
+        <View style={{top: 40}}>
           <Text style={{ fontFamily: "Gilroy-Light" }}>Today - {newdate}</Text>
         </View>
-        <FlatList
-          data={data}
+        {!loading ? (
+          <FlatList
+            data={myArticles}
+            keyExtractor={(_, index) => index.toString()}
+            pagingEnabled
+            renderItem={({ item }) => {
+              return (
+                <View style={{ marginTop: 20 }}>
+                  <JournalTitle>{item.name}</JournalTitle>
+                  <JournalText>{item.post}</JournalText>
+                </View>
+              );
+            }}
+            style={style.verticleList}
+          />
+        ) : (
+          <FlatList
+          data={skelton}
           keyExtractor={(_, index) => index.toString()}
           pagingEnabled
           renderItem={({ item }) => {
             return (
-              <View style={{marginTop: 30}}>
-                <JournalTitle>{item.name}</JournalTitle>
-                <JournalText>{item.text}</JournalText>
-                </View>
+              <Animated.View style={{ marginTop: 20, opacity: myValue }}>
+                <SkeltonName>{item.name}</SkeltonName>
+                <SkeltonPost >{item.post}</SkeltonPost>
+                <SkeltonLast >{item.blah}</SkeltonLast>
+              </Animated.View>
             );
           }}
-          style={style.verticleList}
+          style={style.skeltonList}
         />
+        )}
       </HomeContainer>
     </SafeAreaView>
   );
 }
 
 const style = StyleSheet.create({
-  date: {
-    top: 40,
-  },
   verticleList: {
     top: 80,
-    width: "92%"
+    width: "92%",
+  },
+  skeltonList: {
+    top: 80,
+    width: "92%",
   }
 });
